@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Northern AO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #000;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.03;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            letter-spacing: -3px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.3s both;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.5s both;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 1.3rem 3.5rem;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cta-primary {
+            background: #fff;
+            color: #000;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255,255,255,0.2);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        .cta-secondary:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 3rem;
+        }
+
+        .section-white {
+            background: #fff;
+            color: #000;
+        }
+
+        .section-black {
+            background: #000;
+            color: #fff;
+        }
+
+        .section h2 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .section-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 0;
+            margin-top: 4rem;
+        }
+
+        .opportunity-card {
+            padding: 4rem;
+            border: 1px solid;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .section-white .opportunity-card {
+            border-color: #000;
+        }
+
+        .section-black .opportunity-card {
+            border-color: #fff;
+        }
+
+        .section-white .opportunity-card:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .section-black .opportunity-card:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .opportunity-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .opportunity-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .opportunity-card p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .stats-section {
+            text-align: center;
+            padding: 120px 3rem;
+            background: #000;
+            color: #fff;
+            border-top: 3px solid #fff;
+            border-bottom: 3px solid #fff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 5rem auto 0;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            border: 2px solid #fff;
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .stat-item h3 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .requirements-section {
+            background: #fff;
+            color: #000;
+            padding: 120px 3rem;
+        }
+
+        .requirements-list {
+            max-width: 900px;
+            margin: 4rem auto 0;
+        }
+
+        .requirement-item {
+            padding: 2.5rem;
+            border: 3px solid #000;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .requirement-item:hover {
+            background: #000;
+            color: #fff;
+            transform: translateX(10px);
+        }
+
+        .requirement-number {
+            font-size: 3rem;
+            font-weight: 900;
+            min-width: 80px;
+        }
+
+        .requirement-content h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .requirement-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .lifestyle-section {
+            background: #000;
+            color: #fff;
+            padding: 120px 3rem;
+            text-align: center;
+        }
+
+        .lifestyle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+        }
+
+        .lifestyle-card {
+            padding: 3rem;
+            border: 2px solid #fff;
+            transition: all 0.3s;
+        }
+
+        .lifestyle-card:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .lifestyle-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .lifestyle-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .lifestyle-card p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .cta-section {
+            background: #fff;
+            color: #000;
+            text-align: center;
+            padding: 150px 3rem;
+        }
+
+        .cta-section h2 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .cta-section .highlight {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.5rem;
+            background: transparent;
+            border: 2px solid #000;
+            font-size: 1.1rem;
+            color: #000;
+            transition: all 0.3s;
+            font-weight: 300;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            background: #000;
+            color: #fff;
+            padding: 1.5rem 4rem;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .disclaimer {
+            max-width: 900px;
+            margin: 4rem auto 0;
+            padding: 2rem;
+            border: 2px solid #000;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #666;
+            text-align: left;
+        }
+
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: -1px;
+            }
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+            .section h2 {
+                font-size: 2.5rem;
+            }
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+            .requirement-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Great Northern AO</div>
+            <ul class="nav-links">
+                <li><a href="#opportunity">Opportunity</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#lifestyle">Lifestyle</a></li>
+                <li><a href="#apply">Apply</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <img src="https://i.imgur.com/dpRlkYv.png" alt="Great Northern AO Logo" style="width: 300px; height: auto; margin-bottom: 3rem; display: block; margin-left: auto; margin-right: auto;">
+            <h1>WORK FROM<br>ANYWHERE.<br>EARN WITHOUT<br>LIMITS.</h1>
+            <p class="subtitle">Join one of the fastest-growing teams at AO Globe Life</p>
+            <p>Build a career in virtual life insurance sales. No cap on your income, don't pay for leads. No office commute required. Just hard work, discipline, and unlimited potential.</p>
+            <div class="cta-group">
+                <button class="cta-button cta-primary" onclick="document.getElementById('apply').scrollIntoView({behavior: 'smooth'})">
+                    Apply Now
+                </button>
+                <button class="cta-button cta-secondary" onclick="document.getElementById('opportunity').scrollIntoView({behavior: 'smooth'})">
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-white" id="opportunity">
+        <h2>The Opportunity</h2>
+        <p class="section-subtitle">Virtual life insurance sales with AO Globe Life. You control your schedule. You control your income. We provide the training, tools, and support.</p>
+        <div class="opportunity-grid">
+            <div class="opportunity-card">
+                <div class="opportunity-icon">💰</div>
+                <h3>Uncapped Income</h3>
+                <p>Commission-based earnings with no ceiling. Your effort directly translates to your paycheck. Top performers earn six figures.</p>
+            </div>
+            <div class="opportunity-card">
+                <div class="opportunity-icon">🏠</div>
+                <h3>100% Remote</h3>
+                <p>Work from home, a coffee shop, or anywhere with wifi. Build your career around your life, not the other way around.</p>
+            </div>
+            <div class="opportunity-card">
+                <div class="opportunity-icon">📈</div>
+                <h3>Fast Growth</h3>
+                <p>Join one of the fastest-growing teams in the industry. Learn from top performers and accelerate your path to financial freedom.</p>
+            </div>
+            <div class="opportunity-card">
+                <div class="opportunity-icon">🎁</div>
+                <h3>Free Leads</h3>
+                <p>Access company-provided leads at no cost to you. Start selling immediately without spending your own money on lead generation.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <h2>Real Results</h2>
+        <p class="section-subtitle" style="color: #fff; opacity: 0.8; max-width: 700px; margin: 1rem auto 0;">Our team members are building wealth while working remotely. Here's what's possible:</p>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>$75K+</h3>
+                <p>Avg First Year</p>
+            </div>
+            <div class="stat-item">
+                <h3>$150K+</h3>
+                <p>Top Earners</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Remote Work</p>
+            </div>
+            <div class="stat-item">
+                <h3>0</h3>
+                <p>Income Cap</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="requirements-section" id="requirements">
+        <h2>What It Takes</h2>
+        <p class="section-subtitle">This isn't for everyone. We're looking for disciplined, self-motivated individuals willing to put in the work. Here's what you need:</p>
+        <div class="requirements-list">
+            <div class="requirement-item">
+                <div class="requirement-number">01</div>
+                <div class="requirement-content">
+                    <h3>Self-Motivated</h3>
+                    <p>No one will manage your schedule. You need internal drive, discipline, and the hunger to succeed without supervision.</p>
+                </div>
+            </div>
+            <div class="requirement-item">
+                <div class="requirement-number">02</div>
+                <div class="requirement-content">
+                    <h3>Willing to Learn</h3>
+                    <p>We provide comprehensive training on sales, products, and compliance. You must be coachable and committed to mastering the craft.</p>
+                </div>
+            </div>
+            <div class="requirement-item">
+                <div class="requirement-number">03</div>
+                <div class="requirement-content">
+                    <h3>Pass State Licensing</h3>
+                    <p>You must obtain your state life insurance license. We'll guide you through the process, but you need to study and pass the exam.</p>
+                </div>
+            </div>
+            <div class="requirement-item">
+                <div class="requirement-number">04</div>
+                <div class="requirement-content">
+                    <h3>Hard Work Ethic</h3>
+                    <p>This is performance-based. Success requires consistent effort, resilience through rejection, and commitment to your goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lifestyle-section" id="lifestyle">
+        <h2>Your New Lifestyle</h2>
+        <p class="section-subtitle" style="color: #fff; opacity: 0.8;">Imagine waking up without an alarm. Working from wherever you want. Building wealth on your own terms.</p>
+        <div class="lifestyle-grid">
+            <div class="lifestyle-card">
+                <div class="lifestyle-icon">⏰</div>
+                <h3>Your Schedule</h3>
+                <p>Must be able to work 2pm-8pm Monday - Friday on the member leads you have, weekends are encouraged as a good portion of members may have weekends off!</p>
+            </div>
+            <div class="lifestyle-card">
+                <div class="lifestyle-icon">🌍</div>
+                <h3>Location Free</h3>
+                <p>Beach, mountains, home office. As long as you have internet, you can work.</p>
+            </div>
+            <div class="lifestyle-card">
+                <div class="lifestyle-icon">💪</div>
+                <h3>Financial Freedom</h3>
+                <p>No income cap means real wealth building. Your effort = your earnings.</p>
+            </div>
+            <div class="lifestyle-card">
+                <div class="lifestyle-icon">🎯</div>
+                <h3>Career Growth</h3>
+                <p>Learn from top performers. Build skills that transfer. Create opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="apply">
+        <h2>Ready to Start?</h2>
+        <p class="highlight">This is your shot at financial freedom.</p>
+        <p>If you're disciplined, motivated, and ready to work hard for unlimited earning potential, we want to hear from you.</p>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <input type="text" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <select required>
+                    <option value="">Current Employment Status</option>
+                    <option value="employed">Currently Employed</option>
+                    <option value="unemployed">Currently Unemployed</option>
+                    <option value="student">Student</option>
+                    <option value="entrepreneur">Self-Employed/Entrepreneur</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select required>
+                    <option value="">Sales Experience</option>
+                    <option value="none">No Experience</option>
+                    <option value="some">Some Experience (1-2 years)</option>
+                    <option value="experienced">Experienced (3+ years)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Why do you want to join Great Northern AO? What are your income goals?" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Submit Application</button>
+        </form>
+        
+        <div class="disclaimer">
+            <strong>Important Information:</strong> This is a commission-based, independent contractor opportunity with AO Globe Life. You will be required to obtain and maintain proper state life insurance licensing. Income is performance-based and not guaranteed. Life insurance sales is a regulated industry subject to state and federal compliance requirements. Great Northern AO provides training and support but success depends on individual effort, discipline, and commitment. Past performance of other agents is not a guarantee of future results.
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Great Northern AO | AO Globe Life Independent Agency</p>
+    </footer>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for applying! We\'ll review your application and reach out within 48 hours if you\'re a good fit for our team.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
